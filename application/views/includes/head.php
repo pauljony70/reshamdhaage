@@ -1,4 +1,14 @@
 <?php $this->load->helper('manage_helper') ?>
+<?php
+$default_language = $this->session->userdata('default_language');
+if (empty($this->session->userdata('default_language'))) {
+    $newdata = array(
+        'default_language'  => '2',
+        'logged_in' => TRUE
+    );
+    $set_data = $this->session->set_userdata($newdata);
+}
+?>
 <style>
     :root {
         --theme-color: <?= get_settings('theme_color') ?>;

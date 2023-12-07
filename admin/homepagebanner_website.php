@@ -84,6 +84,39 @@ if (isset($_POST['code'])) {
 						<div class="card-body">
 							<section id="featured" class="featured homehero">
 								<div class="container">
+									<section id="top-category" class="top-category">
+										<h3 class="text-center mb-3">Shop By Category</h3>
+										<div class="row">
+											<div class="col-md-3">
+												<div class="card" style="background-image: url('<?= BASEURL . 'assets/images/category1.jpeg' ?>');">
+													<div class="card-body d-flex align-items-center justify-content-center" onclick="uploadTopCategory()">
+														<button type="button" class="btn btn-success">Upload</button>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="card" style="background-image: url('<?= BASEURL . 'assets/images/category1.jpeg' ?>');">
+													<div class="card-body d-flex align-items-center justify-content-center" onclick="uploadTopCategory()">
+														<button type="button" class="btn btn-success">Upload</button>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="card" style="background-image: url('<?= BASEURL . 'assets/images/category1.jpeg' ?>');">
+													<div class="card-body d-flex align-items-center justify-content-center" onclick="uploadTopCategory()">
+														<button type="button" class="btn btn-success">Upload</button>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="card" style="background-image: url('<?= BASEURL . 'assets/images/category1.jpeg' ?>');">
+													<div class="card-body d-flex align-items-center justify-content-center" onclick="uploadTopCategory()">
+														<button type="button" class="btn btn-success">Upload</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</section>
 									<div class="row">
 
 										<?php
@@ -745,6 +778,54 @@ if (isset($_POST['code'])) {
 
 		</div>
 
+	</div>
+</div>
+
+<div id="topCategoryModal" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="width:50%;">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Banner</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div id="new_cat_div">
+					<div class="form-group" id="parent_cat_div">
+						<label for="name">Select Category</label>
+						<select class="form-control" id="selectcategory" name="selectcategory" style="">
+                            <?php
+
+                            echo '<option value="0:none">Select Category </option>';
+                            function categoryTreeSelect($parent_id = 0, $sub_mark = '')
+                            {
+                              global $conn;
+                              $query = $conn->query("SELECT * FROM category WHERE parent_id = $parent_id ORDER BY cat_name ASC");
+
+                              if ($query->num_rows > 0) {
+                                while ($row = $query->fetch_assoc()) {
+                                  echo '<option value="' . $row['cat_id'] . ':' . $row['cat_name'] . '">' . $sub_mark . $row['cat_name'] . '</option>';
+                                  categoryTreeSelect($row['cat_id'], $sub_mark . '---');
+                                }
+                              }
+                            }
+                            categoryTreeSelect();
+
+
+                            ?>
+                          </select>
+
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="image">Image</label>
+					<input type="file" name="banner_imagecat" id="banner_imagecat" class="form-control-file" required accept="image/png, image/jpeg,image/jpg,image/gif">
+				</div>
+				<input type="hidden" id="banner_typecat">
+				<input type="hidden" id="banner_sectioncat">
+				<button type="submit" class="btn btn-success" value="Upload" href="javascript:void(0)" id="add_catbanner_btn">Add</button>
+			</div>
+		</div>
 	</div>
 </div>
 

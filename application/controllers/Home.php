@@ -27,6 +27,9 @@ class Home extends CI_Controller {
 		$this->data['recommended_product'] = $this->home_model->get_home_products('Recommended');
 		$this->data['offers_product'] = $this->home_model->get_home_products('Offers');
 		$this->data['header_cat'] = $this->home_model->get_category();
+		// echo "<pre>";
+		// print_r($this->data['header_cat']);
+		// exit;
 		
 		$this->load->view('index.php',$this->data);  // ye view/website folder hai
 	}

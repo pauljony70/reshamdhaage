@@ -18,6 +18,13 @@
 
 }
 
+.top-category .card {
+  height: 300px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /*.homehero{
   margin-top: 80px;
 }*/

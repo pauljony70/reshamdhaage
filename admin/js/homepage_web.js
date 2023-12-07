@@ -12,6 +12,11 @@ function add_banner_full_width(section1_image,section1_link, section1_type,secti
 	$("#banner_section").val('section1');
 }
 
+function uploadTopCategory(){
+	$("#topCategoryModal").modal('show');
+
+}
+
 function add_banner_section2(section1_link, section1_type,section1_title,section1_description,section1_btn){
 	$("#myModalsection1").modal('show');
 	$("#banner_title").val(section1_title);

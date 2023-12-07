@@ -13,8 +13,8 @@ $OTPauthKey = "";
  
 $serverkey="AAAAcxFB1SWsdfsdf834hfnNeT"; 
  
-// define('BASEURL', 'http://localhost/singlevendor/');
-define('BASEURL', 'https://reshamdhaage.com/');
+define('BASEURL', 'http://localhost/reshamdhaage/');
+// define('BASEURL', 'https://reshamdhaage.com/');
 
 $g_mail = "info@mkkirana.com";
 $senderid = "mkkirana";
