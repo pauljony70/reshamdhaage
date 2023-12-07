@@ -4,12 +4,6 @@
 <script src="<?php echo base_url('assets/js/app/common.js') ?>"></script>
 
 <script>
-	function isNumberKey(evt) {
-		var charCode = (evt.which) ? evt.which : event.keyCode
-		if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46)
-			return false;
-		return true;
-	}
 	var csrfName = $(".txt_csrfname").attr("name"); // 
 	var csrfHash = $(".txt_csrfname").val(); // CSRF hash
 	var site_url = '<?= base_url() ?>'
@@ -19,9 +13,85 @@
 	$(function() {
 		window.onload = get_cart_products(user_id);
 		window.onload = get_wishlist_products(user_id);
-		window.onload = get_category();
 	});
 
+	function isNumberKey(evt) {
+		var charCode = (evt.which) ? evt.which : event.keyCode
+		if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46)
+			return false;
+		return true;
+	}
+
+	function toggleSearch(event) {
+		// Get the search form div and overlay
+		var searchFormDiv = document.querySelector('.search-form-div');
+		var searchFormOverlay = document.querySelector('.search-form-overlay');
+
+		// Check if the click was outside the search form and not on the toggle button
+		var isOutsideClick = !searchFormDiv.contains(event.target) && event.target !== document.querySelector('.fa-magnifying-glass');
+
+		// Close the form if the click is outside
+		if (isOutsideClick) {
+			// Hide search form
+			searchFormDiv.classList.remove('d-block');
+			searchFormDiv.classList.add('d-none');
+
+			// Hide overlay and enable body scroll
+			searchFormOverlay.classList.remove('show');
+			document.body.style.overflow = '';
+
+			// Change the icon back to search
+			var xmarkIcon = document.querySelector('.fa-xmark');
+			if (xmarkIcon) {
+				xmarkIcon.classList.add('fa-magnifying-glass');
+				xmarkIcon.classList.remove('fa-xmark');
+			}
+		} else {
+			// Toggle classes to show/hide the search form
+			if (searchFormDiv.classList.contains('d-none')) {
+				// Show search form
+				searchFormDiv.classList.remove('d-none');
+				searchFormDiv.classList.add('d-block');
+
+				// Show overlay and disable body scroll
+				searchFormOverlay.classList.add('show');
+				document.body.style.overflow = 'hidden';
+
+				// Change the icon to close
+				document.querySelector('.fa-magnifying-glass').classList.add('fa-xmark');
+				document.querySelector('.fa-magnifying-glass').classList.remove('fa-magnifying-glass');
+			} else {
+				// Hide search form
+				searchFormDiv.classList.remove('d-block');
+				searchFormDiv.classList.add('d-none');
+
+				// Hide overlay and enable body scroll
+				searchFormOverlay.classList.remove('show');
+				document.body.style.overflow = '';
+
+				// Change the icon back to search
+				var xmarkIcon = document.querySelector('.fa-xmark');
+				if (xmarkIcon) {
+					xmarkIcon.classList.add('fa-magnifying-glass');
+					xmarkIcon.classList.remove('fa-xmark');
+				}
+			}
+		}
+	}
+
+	// Add an event listener to handle clicks
+	document.addEventListener('click', toggleSearch);
+
+
+	$(document).on('focus', '#search', function() {
+		$(this).addClass('focus-within');
+		$(this).siblings('#searchButton').addClass('focus-within');
+	});
+
+	$(document).on('blur', '#search', function() {
+		$(this).removeClass('focus-within');
+		$(this).siblings('#searchButton').removeClass('focus-within');
+	});
 
 	function get_category() {
 		$.ajax({

@@ -4,11 +4,34 @@
 
 .menu-navbar {
     height: 68.43px;
+    z-index: 999 !important;
 }
 
 .menu-navbar .nav-item {
     font-size: 16px;
     line-height: 24px;
+}
+
+.search-form-div {
+    top: 140px;
+    z-index: 100;
+    display: none;
+}
+
+.search-form-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.search-form-overlay.show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    opacity: 1;
 }
 
 .search-input-group {

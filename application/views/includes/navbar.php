@@ -4,68 +4,49 @@
 <input type="hidden" name="website_name" value="<?php echo $website_name; ?>" id="website_name">
 <input type="hidden" class="securecode" value="1234567890">
 
-<div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="margin-top: 165px;">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <form action="<?= base_url('search/s') ?>" class="d-flex" role="search">
-                    <div class="position-relative">
-                        <div class="input-group search-input-group">
-                            <input type="text" class="form-control" autocomplete="off" id="search" name="search" value="<?= isset($_REQUEST['search']) ? $_REQUEST['search'] : '' ?>" placeholder="What are you looking for?" aria-label="Search" aria-describedby="button-addon2">
-                            <button class="btn" type="submit" id="searchButton">
-                                <img src="<?= base_url('assets_web/images/icons/magnify-glass.svg') ?>" alt="Icon">
-                            </button>
-                        </div>
-                        <div class="dropdown position-absolute w-100 mt-2" style="left: 0; z-index: 1000;">
-                            <ul class="dropdown-menu searchResults py-0 w-100" id="searchResults"></ul>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- New Navbar -->
-<header class="navbar-light navbar-sticky bg-white" style="position: sticky; top: -1px; z-index: 1051;">
+
+<header class="navbar-light navbar-sticky" style="position: sticky; top: -1px; z-index: 1000;">
     <!-- Part 1 Navbar (Logo, Search, Cart and User Details) -->
-    <nav class="navbar menu-navbar navbar-expand-lg bg-white container">
-        <div class="row w-100">
-            <div class="col-4">
-                <div class="d-flex d-lg-none align-items-center h-100">
-                    <a class="ms-3 text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-                        <i class="fa-solid fa-bars"></i>
-                    </a>
+    <nav class="navbar menu-navbar navbar-expand-lg bg-white">
+        <div class="container">
+            <div class="row w-100">
+                <div class="col-4">
+                    <div class="d-flex d-lg-none align-items-center h-100">
+                        <a class="ms-3 text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+                            <i class="fa-solid fa-bars"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <a class="col-4 navbar-brand m-0 py-0 text-center" href="<?= base_url() ?>">
-                <img src="<?= base_url('assets/images/logo.png') ?>" alt="<?= get_store_settings('store_name') ?>" srcset="">
-            </a>
-            <div class="col-4 d-flex align-items-center justify-content-end">
-                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal" title="Search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                <a class="col-4 navbar-brand m-0 py-0 text-center" href="<?= base_url() ?>">
+                    <img src="<?= base_url('assets/images/logo.png') ?>" alt="<?= get_store_settings('store_name') ?>" srcset="">
                 </a>
-                <a href="<?= base_url('wishlist') ?>" class="ms-2 ms-md-4 position-relative" title="Wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                    <span class="wishlist-icon-count">
-                        <div id="badge-wishlist-count">0</div>
-                    </span>
-                </a>
-                <a href="<?= base_url('cart') ?>" class="ms-2 ms-md-4 position-relative" title="Cart">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="icon-count">
-                        <div id="badge-cart-count">0</div>
-                    </span>
-                </a>
-                <?php if ($this->session->userdata('user_id') == '') : ?>
-                    <a href="<?= base_url('login') ?>" class="ms-2 ms-md-4 d-none d-md-block" title="Profile">
-                        <i class="fa-regular fa-user"></i>
+                <div class="col-4 d-flex align-items-center justify-content-end">
+                    <a href="javascript:void(0)" title="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </a>
-                <?php else : ?>
-                    <a href="<?= base_url('personal_info') ?>" class="ms-2 ms-md-4 d-none d-md-block" title="<?= $this->session->userdata('user_name') ?>">
-                        <i class="fa-regular fa-user"></i>
+                    <a href="<?= base_url('wishlist') ?>" class="ms-2 ms-md-4 position-relative" title="Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                        <span class="wishlist-icon-count">
+                            <div id="badge-wishlist-count">0</div>
+                        </span>
                     </a>
-                <?php endif; ?>
+                    <a href="<?= base_url('cart') ?>" class="ms-2 ms-md-4 position-relative" title="Cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="icon-count">
+                            <div id="badge-cart-count">0</div>
+                        </span>
+                    </a>
+                    <?php if ($this->session->userdata('user_id') == '') : ?>
+                        <a href="<?= base_url('login') ?>" class="ms-2 ms-md-4 d-none d-md-block" title="Profile">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                    <?php else : ?>
+                        <a href="<?= base_url('personal_info') ?>" class="ms-2 ms-md-4 d-none d-md-block" title="<?= $this->session->userdata('user_name') ?>">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </nav>
@@ -126,6 +107,26 @@
             </div>
         </div>
     </nav>
+
+    <div class="search-form-div position-absolute d-none">
+        <form action="<?= base_url('search/s') ?>" class="d-flex" role="search">
+            <div class="position-relative">
+                <div class="input-group search-input-group">
+                    <input type="text" class="form-control" autocomplete="off" id="search" name="search" value="<?= isset($_REQUEST['search']) ? $_REQUEST['search'] : '' ?>" placeholder="Search (keywords,etc)" aria-label="Search" aria-describedby="button-addon2">
+                    <button class="btn" type="submit" id="searchButton">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+
+                <div class="dropdown position-absolute w-100 mt-2" style="left: 0; z-index: 1000;">
+                    <ul class="dropdown-menu searchResults py-0 w-100" id="searchResults"></ul>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="search-form-overlay"></div>
 </header>
 
 <!-- New Mobile Sidebar -->
