@@ -1,6 +1,8 @@
 <?php
 
 header('Cache-Control: no cache');
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 ?>
 <!--
 Author: Jony Paul
@@ -187,7 +189,6 @@ Author URL: https://github.com/pauljony70
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
-  <script src="https://rawgit.com/someatoms/jsPDF-AutoTable/master/dist/jspdf.plugin.autotable.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.16/jspdf.plugin.autotable.js"></script>
   <script src="assets/js/vendor.min.js"></script>
   <script src="js/common.js"></script>
@@ -463,5 +464,6 @@ Author URL: https://github.com/pauljony70
     <!-- //header-ends -->
     <div class="loading" style="display:none;">Loading&#8230;</div>
     <input type="hidden" name="code_ajax" id="code_ajax" value="<?php echo $_SESSION['_token']; ?>">
+    <input type="hidden" name="base_url" id="base_url" value="<?= BASEURL ?>">
     <link href="css/xdialog.min.css" rel="stylesheet" />
     <script type="text/javascript" src="js/xdialog.min.js"></script>

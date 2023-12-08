@@ -16,13 +16,14 @@ include("header.php");
 			<div class="modal-body">
 				<form id="imageUploadForm" action="homepage-banner-process.php" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" id="uploadId" value="">
+					<input type="hidden" name="bannerType" id="bannerType" value="">
 					<div class="form-group">
 						<label for="uploadLink">Link</label>
 						<input type="text" class="form-control" id="uploadLink" name="uploadLink" data-parsley-required-message="Link is required." required>
 					</div>
 					<div class="form-group">
 						<label for="image">Image</label>
-						<input type="file" class="form-control-file" id="image" name="image" accept="image/png, image/gif, image/jpeg" data-parsley-required-message="Image is required." required>
+						<input type="file" class="form-control-file" id="image" name="image" data-parsley-required-message="Image is required." required>
 					</div>
 					<button type="submit" class="btn btn-dark">Submit</button>
 				</form>
@@ -56,9 +57,9 @@ include("header.php");
 										<div class="row">
 											<?php while ($row = $result->fetch_assoc()) : ?>
 												<div class="col-6 col-md-3">
-													<a href="<?= $row['link'] ?>" target="_blank" class="card" style="background-image: url('<?= BASEURL . $row['image'] ?>');">
+													<a href="<?= $row['link'] ?>" target="_blank" class="card" id="<?= $row['type'] ?>" style="background-image: url('<?= BASEURL . 'media/' . $row['image'] ?>');">
 														<div class="card-body d-flex align-items-center justify-content-center">
-															<button type="button" class="btn btn-success waves-effect waves-light" data-id="<?= $row['id'] ?>" data-link="<?= $row['link'] ?>" data-toggle="modal" data-target="#imageUploadModal" onclick="uploadTopCategory(event)">Upload</button>
+															<button type="button" class="btn btn-success waves-effect waves-light" data-id="<?= $row['id'] ?>" data-link="<?= $row['link'] ?>" data-type="<?= $row['type'] ?>" data-toggle="modal" data-target="#imageUploadModal" onclick="uploadTopCategory(event)">Upload</button>
 														</div>
 													</a>
 												</div>

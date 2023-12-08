@@ -25,6 +25,12 @@
   background-repeat: no-repeat;
 }
 
+@media(max-width: 768px) {
+  .top-category .card {
+    height: 180px;
+  }
+}
+
 /*.homehero{
   margin-top: 80px;
 }*/

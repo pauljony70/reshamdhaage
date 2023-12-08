@@ -1,7 +1,6 @@
 <?php
-// homepage-banner-process.php
-
 include('session.php');
+include('common_functions.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate CSRF token
@@ -17,29 +16,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $link = $_POST['uploadLink'];
 
-    // File handling
-    $uploadDir = '../media/';  // Set your desired upload directory
-    $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+    // Call the secureImageUpload function
+    $uploadData = secureImageUpload($_FILES['image'], '../media/'); // Adjust the path as needed
 
-    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+    // Check if the file upload was successful
+    if ($uploadData['status'] === 'success') {
         // File uploaded successfully, proceed with the database update
 
-        // Prepare and execute the SQL query
-        $sql = "UPDATE homepage_banner SET link = ?, image = ? WHERE id = ?";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssi", $link, $uploadFile, $id);
+        // Extract the file path from the upload response
+        $uploadFile = $uploadData['filePath'];
 
-        if ($stmt->execute()) {
-            $response = array('status' => 'success', 'message' => 'Banner updated successfully');
+        // Fetch the old image path from the database
+        $sqlFetchOldImage = "SELECT image FROM homepage_banner WHERE id = ?";
+        $stmtFetchOldImage = $conn->prepare($sqlFetchOldImage);
+        $stmtFetchOldImage->bind_param("i", $id);
+        $stmtFetchOldImage->execute();
+        $stmtFetchOldImage->bind_result($oldImagePath);
+        $stmtFetchOldImage->fetch();
+        $stmtFetchOldImage->close();
+
+        // Check if the old image path exists and is different from the new one
+        if ($oldImagePath && $oldImagePath !== $uploadFile) {
+            // Remove the old image file
+            $oldImageFile = '../media/' . $oldImagePath;
+
+            if (file_exists($oldImageFile)) {
+                unlink($oldImageFile);
+            }
+        }
+
+        // Prepare and execute the SQL query
+        $sqlUpdate = "UPDATE homepage_banner SET link = ?, image = ? WHERE id = ?";
+        $stmtUpdate = $conn->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("ssi", $link, $uploadFile, $id);
+
+        if ($stmtUpdate->execute()) {
+            $response = array('status' => 'success', 'message' => 'Banner updated successfully', 'filePath' => $uploadFile);
         } else {
-            $response = array('status' => 'error', 'message' => 'Error updating banner: ' . $stmt->error);
+            $response = array('status' => 'error', 'message' => 'Error updating banner: ' . $stmtUpdate->error);
         }
 
         // Close the statement
-        $stmt->close();
+        $stmtUpdate->close();
     } else {
-        $response = array('status' => 'error', 'message' => 'Error uploading file.');
+        // Error during file upload
+        $response = array('status' => 'error', 'message' => 'Error uploading file.', 'filePath' => null);
     }
 
     // Send JSON response
