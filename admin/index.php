@@ -69,14 +69,14 @@ Author URL: https://www.blueappsoftware.com
     <title>Admin Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="">
-    <!-- Bootstrap Core CSS -->
-    <link href="<?php echo BASEURL; ?>assets/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <!-- font-awesome icons CSS-->
-    <link href="<?php echo BASEURL; ?>assets/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- //font-awesome icons CSS-->
     <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>assets/login/animate.css">
     <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>assets/login/main.css">
     <meta name="robots" content="noindex, follow">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="<?= BASEURL . 'assets/images/favicon_io/favicon.ico' ?>">
 </head>
 
 <body>

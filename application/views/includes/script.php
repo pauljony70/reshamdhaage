@@ -27,26 +27,8 @@
 		var searchFormDiv = document.querySelector('.search-form-div');
 		var searchFormOverlay = document.querySelector('.search-form-overlay');
 
-		// Check if the click was outside the search form and not on the toggle button
-		var isOutsideClick = !searchFormDiv.contains(event.target) && event.target !== document.querySelector('.fa-magnifying-glass');
-
-		// Close the form if the click is outside
-		if (isOutsideClick) {
-			// Hide search form
-			searchFormDiv.classList.remove('d-block');
-			searchFormDiv.classList.add('d-none');
-
-			// Hide overlay and enable body scroll
-			searchFormOverlay.classList.remove('show');
-			document.body.style.overflow = '';
-
-			// Change the icon back to search
-			var xmarkIcon = document.querySelector('.fa-xmark');
-			if (xmarkIcon) {
-				xmarkIcon.classList.add('fa-magnifying-glass');
-				xmarkIcon.classList.remove('fa-xmark');
-			}
-		} else {
+		// Check if the click was on the toggle button
+		if (event.target === document.querySelector('.fa-magnifying-glass')) {
 			// Toggle classes to show/hide the search form
 			if (searchFormDiv.classList.contains('d-none')) {
 				// Show search form
@@ -70,12 +52,23 @@
 				document.body.style.overflow = '';
 
 				// Change the icon back to search
-				var xmarkIcon = document.querySelector('.fa-xmark');
-				if (xmarkIcon) {
-					xmarkIcon.classList.add('fa-magnifying-glass');
-					xmarkIcon.classList.remove('fa-xmark');
-				}
+				document.querySelector('.fa-xmark').classList.add('fa-magnifying-glass');
+				document.querySelector('.fa-xmark').classList.remove('fa-xmark');
 			}
+		} else if (!searchFormDiv.contains(event.target)) {
+			// Close the form if the click is outside and not inside the form
+			// and the click was not on the toggle button
+			// Hide search form
+			searchFormDiv.classList.remove('d-block');
+			searchFormDiv.classList.add('d-none');
+
+			// Hide overlay and enable body scroll
+			searchFormOverlay.classList.remove('show');
+			document.body.style.overflow = '';
+
+			// Change the icon back to search
+			document.querySelector('.fa-xmark').classList.add('fa-magnifying-glass');
+			document.querySelector('.fa-xmark').classList.remove('fa-xmark');
 		}
 	}
 

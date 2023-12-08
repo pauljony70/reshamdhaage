@@ -14,6 +14,8 @@ Author URL: https://github.com/pauljony70
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="keywords" content="Dashboard,Admin panel, blueappsoftware" />
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="<?= BASEURL . 'assets/images/favicon_io/favicon.ico' ?>">
 
   <!-- Plugins css -->
   <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
@@ -364,7 +366,7 @@ Author URL: https://github.com/pauljony70
                       <a href="homepagecategory.php">Home Page - App</a>
                     </li>
                     <li>
-                      <a href="homepagebanner_website.php">Home Page - Website</a>
+                      <a href="homepage-banner-website.php">Home Page - Website</a>
                     </li>
                   </ul>
                 </div>
