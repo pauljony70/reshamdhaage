@@ -110,6 +110,23 @@ class Home_model extends CI_Model
 		return $post_data;
 	}
 
+	function getHomeBanners()
+	{
+		$data = $this->db->get('homepage_banner')->result_array();
+		$result = array();
+
+		foreach ($data as $item) {
+			$section = $item['section'];
+			unset($item['section']); // Remove the 'section' key from the item
+
+			// Append to the result array based on the section
+			$result[$section][] = $item;
+		}
+
+		return $result;
+	}
+
+
 	function get_header_banner_request($section, $dimension)
 	{
 		$this->db->select('*');

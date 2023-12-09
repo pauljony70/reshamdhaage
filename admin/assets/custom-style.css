@@ -18,13 +18,6 @@
 
 }
 
-.top-category .card {
-  height: 300px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 @media(max-width: 768px) {
   .top-category .card {
     height: 180px;

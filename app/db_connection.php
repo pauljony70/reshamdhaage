@@ -1,6 +1,8 @@
 <?php
- // header ('Content-Type: text/html; charset=UTF-8'); 
-  
+// header ('Content-Type: text/html; charset=UTF-8');
+
+date_default_timezone_set('Asia/Kolkata');
+
 define('HOST', 'localhost');
 define('DB1', 'reshamdhaage');
 define('USER', 'root');
@@ -9,10 +11,10 @@ define('PASS', '');
 // define('USER', 'u467215979_reshamdhaage');
 // define('PASS', '7z;Nx0U9?sK');
 
-$OTPauthKey = ""; 
- 
-$serverkey="AAAAcxFB1SWsdfsdf834hfnNeT"; 
- 
+$OTPauthKey = "";
+
+$serverkey = "AAAAcxFB1SWsdfsdf834hfnNeT";
+
 define('BASEURL', 'http://localhost/reshamdhaage/');
 // define('BASEURL', 'https://reshamdhaage.com/');
 
@@ -22,9 +24,6 @@ $senderid = "mkkirana";
 $conn = new mysqli(HOST, USER, PASS, DB1);
 
 
-if($conn->connect_errno){
-	trigger_error('Database connection has failed '. $conn->connect_errno, E_USER_ERROR);
+if ($conn->connect_errno) {
+	trigger_error('Database connection has failed ' . $conn->connect_errno, E_USER_ERROR);
 }
-
-
-?>

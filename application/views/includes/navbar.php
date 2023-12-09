@@ -109,9 +109,9 @@
     </nav>
 
     <div class="search-form-div position-absolute d-none">
-        <form action="<?= base_url('search/s') ?>" class="d-flex" role="search">
+        <form action="<?= base_url('search/s') ?>" role="search">
             <div class="position-relative">
-                <div class="input-group search-input-group">
+                <div class="input-group search-input-group w-100">
                     <input type="text" class="form-control" autocomplete="off" id="search" name="search" value="<?= isset($_REQUEST['search']) ? $_REQUEST['search'] : '' ?>" placeholder="Search (keywords,etc)" aria-label="Search" aria-describedby="button-addon2">
                     <button class="btn" type="submit" id="searchButton">
                         <i class="fa-solid fa-magnifying-glass"></i>

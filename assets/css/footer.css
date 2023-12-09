@@ -1,8 +1,8 @@
-.footer-links {
+.footer-badges {
     background-color: var(--bs-gray-100);
 }
 
-.footer-links i {
+.footer-badges i {
     font-size: 2.5rem;
 }
 
@@ -15,8 +15,12 @@
     opacity: 0.5;
 }
 
+.footer-logo img {
+    height: 54px;
+}
+
 @media(max-width: 768px) {
-    .footer-links i {
+    .footer-badges i {
         font-size: 1.3rem;
     }
 
@@ -26,5 +30,9 @@
 
     .free-shipping-text {
         font-size: 8px;
+    }
+
+    .footer-logo img {
+        height: 40px;
     }
 }

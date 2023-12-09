@@ -18,6 +18,7 @@
 	<!-- back to to button end-->
 
 	<!-- Header area -->
+	<?php include("includes/topbar.php") ?>
 	<?php include("includes/navbar.php") ?>
 	<!-- Header area end -->
 

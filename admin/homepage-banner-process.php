@@ -15,52 +15,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $id = $_POST['id'];
     $link = $_POST['uploadLink'];
+    $formType = isset($_POST['form_type']) ? $_POST['form_type'] : '';
 
-    // Call the secureImageUpload function
-    $uploadData = secureImageUpload($_FILES['image'], '../media/'); // Adjust the path as needed
+    if ($formType === 'imageUpload') {
+        // Handle image upload
+        $uploadData = secureImageUpload($_FILES['image'], '../media/'); // Adjust the path as needed
 
-    // Check if the file upload was successful
-    if ($uploadData['status'] === 'success') {
-        // File uploaded successfully, proceed with the database update
+        // Check if the file upload was successful
+        if ($uploadData['status'] === 'success') {
+            // File uploaded successfully, proceed with the database update
 
-        // Extract the file path from the upload response
-        $uploadFile = $uploadData['filePath'];
+            // Extract the file path from the upload response
+            $uploadFile = $uploadData['filePath'];
 
-        // Fetch the old image path from the database
-        $sqlFetchOldImage = "SELECT image FROM homepage_banner WHERE id = ?";
-        $stmtFetchOldImage = $conn->prepare($sqlFetchOldImage);
-        $stmtFetchOldImage->bind_param("i", $id);
-        $stmtFetchOldImage->execute();
-        $stmtFetchOldImage->bind_result($oldImagePath);
-        $stmtFetchOldImage->fetch();
-        $stmtFetchOldImage->close();
+            // Fetch the old image path from the database
+            $sqlFetchOldImage = "SELECT image FROM homepage_banner WHERE id = ?";
+            $stmtFetchOldImage = $conn->prepare($sqlFetchOldImage);
+            $stmtFetchOldImage->bind_param("i", $id);
+            $stmtFetchOldImage->execute();
+            $stmtFetchOldImage->bind_result($oldImagePath);
+            $stmtFetchOldImage->fetch();
+            $stmtFetchOldImage->close();
 
-        // Check if the old image path exists and is different from the new one
-        if ($oldImagePath && $oldImagePath !== $uploadFile) {
-            // Remove the old image file
-            $oldImageFile = '../media/' . $oldImagePath;
+            // Check if the old image path exists and is different from the new one
+            if ($oldImagePath && $oldImagePath !== $uploadFile) {
+                // Remove the old image file
+                $oldImageFile = '../media/' . $oldImagePath;
 
-            if (file_exists($oldImageFile)) {
-                unlink($oldImageFile);
+                if (file_exists($oldImageFile)) {
+                    unlink($oldImageFile);
+                }
             }
+
+            // Prepare and execute the SQL query
+            $sqlUpdate = "UPDATE homepage_banner SET link = ?, image = ? WHERE id = ?";
+            $stmtUpdate = $conn->prepare($sqlUpdate);
+            $stmtUpdate->bind_param("ssi", $link, $uploadFile, $id);
+
+            if ($stmtUpdate->execute()) {
+                $response = array('status' => 'success', 'message' => 'Banner updated successfully', 'data' => array('filePath' => $uploadFile, 'link' => $link));
+            } else {
+                $response = array('status' => 'error', 'message' => 'Error updating banner: ' . $stmtUpdate->error);
+            }
+
+            // Close the statement
+            $stmtUpdate->close();
+        } else {
+            // Error during file upload
+            $response = array('status' => 'error', 'message' => 'Error uploading file.', 'filePath' => null);
         }
+    } elseif ($formType === 'buttonUpload') {
+        // Handle text input (button upload)
+        $linkText = isset($_POST['image']) ? $_POST['image'] : '';
 
         // Prepare and execute the SQL query
         $sqlUpdate = "UPDATE homepage_banner SET link = ?, image = ? WHERE id = ?";
         $stmtUpdate = $conn->prepare($sqlUpdate);
-        $stmtUpdate->bind_param("ssi", $link, $uploadFile, $id);
+        $stmtUpdate->bind_param("ssi", $link, $linkText, $id);
 
         if ($stmtUpdate->execute()) {
-            $response = array('status' => 'success', 'message' => 'Banner updated successfully', 'filePath' => $uploadFile);
+            $response = array('status' => 'success', 'message' => 'Button updated successfully',  'data' => array('linkText' => $linkText, 'link' => $link));
         } else {
-            $response = array('status' => 'error', 'message' => 'Error updating banner: ' . $stmtUpdate->error);
+            $response = array('status' => 'error', 'message' => 'Error updating button: ' . $stmtUpdate->error);
         }
 
         // Close the statement
         $stmtUpdate->close();
     } else {
-        // Error during file upload
-        $response = array('status' => 'error', 'message' => 'Error uploading file.', 'filePath' => null);
+        // Invalid form type
+        $response = array('status' => 'error', 'message' => 'Invalid form type');
     }
 
     // Send JSON response
@@ -71,4 +94,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('HTTP/1.1 400 Bad Request');
     exit();
 }
-?>
