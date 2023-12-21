@@ -1,6 +1,7 @@
 <?php
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include('../app/db_connection.php');
 $conn;
 session_start(); // Starting Session

@@ -5,13 +5,144 @@ var securecode = $(".securecode").val();
 var prod_id = $("#prod_id").val();
 var user_id = $("#user_id").val();
 
-//alert('ddddd');
-
 $(function () {
-  window.onload = product_details(prod_id);
-  window.onload = attr_data_change(event);
+  // window.onload = product_details(prod_id);
+  // window.onload = attr_data_change(event);
   //window.onload = related_product();
 });
+/* 
+ * ---------------------------------------------------
+ * check Device Type
+ * ---------------------------------------------------
+ */
+(function () {
+  function checkDeviceType() {
+    var userAgent = navigator.userAgent.toLowerCase();
+
+    if (userAgent.match(/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i)) {
+      // Mobile device
+      document.body.classList.add('responsive-body');
+    } else if (userAgent.match(/tablet|ipad/i)) {
+      // Tablet device
+      document.body.classList.add('responsive-body');
+    } else {
+      // Desktop device
+      document.body.classList.remove('responsive-body');
+    }
+  }
+
+  window.addEventListener('load', checkDeviceType);
+  window.addEventListener('resize', checkDeviceType);
+})();
+
+/* 
+ * ---------------------------------------------------
+ * Share Button
+ * ---------------------------------------------------
+ */
+var shareIcon = document.querySelector('.share-icon');
+var hoverCard = document.querySelector('.hover-card');
+
+shareIcon.addEventListener('click', function () {
+  if (hoverCard.style.display === 'block') {
+    shareIcon.classList.remove('active');
+    hoverCard.style.display = 'none';
+  } else {
+    shareIcon.classList.add('active');
+    hoverCard.style.display = 'block';
+  }
+});
+
+document.addEventListener('click', function (e) {
+  if (!shareIcon.contains(e.target) && !hoverCard.contains(e.target)) {
+    shareIcon.classList.remove('active');
+    hoverCard.style.display = 'none';
+  }
+});
+
+function mobileShareLink(url) {
+  if (navigator.share) {
+    navigator.share({
+      title: document.title,
+      url: url
+    })
+      .then(() => console.log('Link shared successfully.'))
+      .catch((error) => console.log('Error sharing link:', error));
+  } else {
+    console.log('Sharing not supported on this device.');
+  }
+}
+
+/* 
+ * ---------------------------------------------------
+ * Initialize Desktop Gallery
+ * ---------------------------------------------------
+ */
+var swiperDesktopThumbs = new Swiper(".product-details-swiper-sm-desktop", {
+  spaceBetween: 15,
+  slidesPerView: 3.14,
+  direction: 'vertical',
+  mousewheel: {
+    releaseOnEdges: true,
+    sensitivity: 1
+  },
+  freeMode: true,
+  watchSlidesProgress: true,
+  breakpoints: {
+    1200: {
+      slidesPerView: 3.12,
+      spaceBetween: 15,
+    },
+    1400: {
+      slidesPerView: 3.1,
+      spaceBetween: 15,
+    }
+  },
+});
+
+var swiperDesktopMain = new Swiper(".product-details-swiper-desktop", {
+  spaceBetween: 10,
+  loop: true,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  thumbs: {
+    swiper: swiperDesktopThumbs,
+  },
+});
+
+new Swiper('.similar-prod-swiper', {
+  slidesPerView: 2,
+  spaceBetween: 15,
+  freeMode: true,
+  grabCursor: true,
+  mousewheel: {
+    forceToAxis: true,
+  },
+  forceToAxis: false,
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  breakpoints: {
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 15,
+    },
+    1024: {
+      slidesPerView: 4,
+      spaceBetween: 15,
+    }
+  },
+  // slidesPerGroup: 4,
+  // speed: 1200,
+});
+
 
 function product_details(prod_id) {
   event.preventDefault();
@@ -317,7 +448,7 @@ function product_details(prod_id) {
 }
 */
 
-$(document).ready(function () {
+/* $(document).ready(function () {
   $("#review_save_btn").click(function () {
     event.preventDefault();
 
@@ -363,44 +494,4 @@ $(document).ready(function () {
       },
     });
   });
-});
-
-$(document).ready(function () {
-  $('.relatedProductSlick').slick({
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    dots: false,
-    prevArrow: false,
-    nextArrow: false,
-    arrow: false,
-    autoplay: true,
-    dotsClass: "slick-dots",
-    autoplaySpeed: 5000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  });
-});
+}); */

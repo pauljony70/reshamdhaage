@@ -19,30 +19,30 @@
                     </div>
                 </div>
                 <a class="col-4 navbar-brand m-0 py-0 text-center" href="<?= base_url() ?>">
-                    <img src="<?= base_url('assets/images/logo.png') ?>" alt="<?= get_store_settings('store_name') ?>" srcset="">
+                    <img src="<?= base_url('assets/images/logo.png') ?>" alt="<?= get_store_settings('store_name') ?>" srcset="<?= base_url('assets/images/logo-108x108.png') ?> 108w" sizes="(min-width: 1000px) 54px, 50px">
                 </a>
                 <div class="col-4 d-flex align-items-center justify-content-end">
                     <a href="javascript:void(0)" title="Search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </a>
-                    <a href="<?= base_url('wishlist') ?>" class="ms-2 ms-md-4 position-relative" title="Wishlist">
+                    <a href="<?= base_url('wishlist') ?>" class="ms-3 ms-md-4 position-relative" title="Wishlist">
                         <i class="fa-regular fa-heart"></i>
                         <span class="wishlist-icon-count">
                             <div id="badge-wishlist-count">0</div>
                         </span>
                     </a>
-                    <a href="<?= base_url('cart') ?>" class="ms-2 ms-md-4 position-relative" title="Cart">
+                    <a href="<?= base_url('cart') ?>" class="ms-3 ms-md-4 position-relative" title="Cart">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span class="icon-count">
                             <div id="badge-cart-count">0</div>
                         </span>
                     </a>
                     <?php if ($this->session->userdata('user_id') == '') : ?>
-                        <a href="<?= base_url('login') ?>" class="ms-2 ms-md-4 d-none d-md-block" title="Profile">
+                        <a href="<?= base_url('productdetail/Patanjali%20cow%20ghee%201%20Ltr%20/12') ?>" class="ms-3 ms-md-4 d-none d-md-block" title="Profile">
                             <i class="fa-regular fa-user"></i>
                         </a>
                     <?php else : ?>
-                        <a href="<?= base_url('personal_info') ?>" class="ms-2 ms-md-4 d-none d-md-block" title="<?= $this->session->userdata('user_name') ?>">
+                        <a href="<?= base_url('personal_info') ?>" class="ms-3 ms-md-4 d-none d-md-block" title="<?= $this->session->userdata('user_name') ?>">
                             <i class="fa-regular fa-user"></i>
                         </a>
                     <?php endif; ?>
@@ -97,7 +97,7 @@
                             <div class="content custom-banner-content box-shadow-0">
                                 <?php for ($i = 0; $i < 3; $i++) : ?>
                                     <div class="col px-2 py-4">
-                                        <img src="assets/images/collection.jpeg" alt="Collection" srcset="" class="w-100 h-100">
+                                        <img src="<?= base_url('assets/images/collection.jpeg') ?>" alt="Collection" srcset="" class="w-100 h-100">
                                     </div>
                                 <?php endfor; ?>
                             </div>

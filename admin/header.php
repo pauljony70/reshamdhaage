@@ -195,14 +195,14 @@ Author URL: https://github.com/pauljony70
 </head>
 
 <body data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "sidebar": { "color": "light", "size": "default", "showuser": false}, "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
-  <div id="loading-animation">
+  <!-- <div id="loading-animation">
     <div class="busy-load-container-item" style="background: none; display: flex; justify-content: center; align-items: center; flex-direction: row-reverse;">
       <div class="spinner-pump busy-load-spinner-css busy-load-spinner" style="max-height: 50px; max-width: 50px; min-height: 20px; min-width: 20px;">
         <div class="double-bounce1" style="background-color: rgb(255, 255, 255); margin-right: 0.9rem;"></div>
         <div class="double-bounce2" style="background-color: rgb(255, 255, 255); margin-right: 0.9rem;"></div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div id="wrapper">
     <div class="navbar-custom">
       <div class="container-fluid">
@@ -355,7 +355,7 @@ Author URL: https://github.com/pauljony70
                       <a href="add_product.php">Add Product</a>
                     </li>
                     <li>
-                      <a href="add_Product_variant.php">Add Variant</a>
+                      <a href="manage-conf-attributes.php">Manage Attributes</a>
                     </li>
                     <li>
                       <a href="manage_product_filter.php">Manage Product</a>
@@ -463,7 +463,7 @@ Author URL: https://github.com/pauljony70
 
     <!-- //header-ends -->
     <div class="loading" style="display:none;">Loading&#8230;</div>
-    <input type="hidden" name="code_ajax" id="code_ajax" value="<?php echo $_SESSION['_token']; ?>">
+    <input type="hidden" name="code_ajax" id="code_ajax" value="<?= $_SESSION['_token']; ?>">
     <input type="hidden" name="base_url" id="base_url" value="<?= BASEURL ?>">
     <link href="css/xdialog.min.css" rel="stylesheet" />
     <script type="text/javascript" src="js/xdialog.min.js"></script>

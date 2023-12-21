@@ -4,6 +4,7 @@ body {
     --font-family-lora: 'Lora', serif;
     --font-family-montserrat: 'Montserrat', sans-serif;
     font-family: 'Montserrat', sans-serif;
+    font-size: .75rem;
 }
 
 a {

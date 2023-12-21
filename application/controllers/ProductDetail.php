@@ -6,8 +6,9 @@ class ProductDetail extends CI_Controller {
 	function __construct() {
         parent::__construct();
         $this->load->helper('url');
+		$this->load->model('home_model');
 		$this->load->model('ProductDetail_model');
-		
+		$this->data['header_cat'] = $this->home_model->get_category();
     }
     
 	public function index($name,$id)
@@ -15,12 +16,10 @@ class ProductDetail extends CI_Controller {
 		$this->load->database();  
 		$language = 1;
 		$securecode = '1234567890';
-		$data['prod_id'] = $id;
-        $data['prod_details_data']=$this->ProductDetail_model->get_product_details($language,$securecode,$id);
-        $data['review_data']=$this->ProductDetail_model->get_review('default',$securecode,$id);
-		//$this->load->view('index',$data);
-		
-		$this->load->view('product_details.php',$data);  // ye view/website folder hai
+		$this->data['prod_id'] = $id;
+        $this->data['prod_details_data']=$this->ProductDetail_model->get_product_details($language,$securecode,$id);
+        $this->data['review_data']=$this->ProductDetail_model->get_review('default',$securecode,$id);
+		$this->load->view('product_details.php',$this->data);  // ye view/website folder hai
 	}
 	
 

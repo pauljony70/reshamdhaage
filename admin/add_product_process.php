@@ -1,5 +1,6 @@
 <?php
 include('session.php');
+
 $name = $_POST['name'];
 $short = $_POST['short'];
 $full = $_POST['full'];
@@ -89,8 +90,8 @@ if (!isset($_SESSION['admin'])) {
     if ($conn->connect_error) {
         die(" connecction has failed " . $conn->connect_error);
     }
-    // get current date
-    date_default_timezone_set("Asia/Kuwait");
+
+
     $datetime = date('Y-m-d H:i:s');
     $other_art = array(
         'size' => $size,
@@ -104,12 +105,12 @@ if (!isset($_SESSION['admin'])) {
     $reviewid = "";
     //  $shipping ="35";
     //    $brand ="1";
-    $stmt11 = $conn->prepare("INSERT INTO productdetails( prod_name, prod_desc, prod_fulldetail, name_ar, short_ar, desc_ar, prod_mrp, prod_price, cgst, sgst, igst, shipping, hsn_code, w_price, w_qty, other_attribute, stock, unit, prod_rating, prod_rating_count, prod_img_url, cat_id, brand_id, review_id, create_by, update_by, pricearray,  coins, discount_coins, displaystock, sellername, prod_remark,freeship, eggless, msgoncake  )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    $stmt11->bind_param("ssssssddddddsdisisdisiiisssiisssiii", $name, $short, $full, $name_ar, $short_ar, $full_ar, $mrp, $price, $cgst, $sgst, $igst, $shipping, $hsn, $w_price, $w_qty, json_encode($other_art), $stockqty, $unit, $rating, $ratingcount, $imagejson, $cat, $brand, $reviewid, $datetime, $datetime, $pricearray, $refercoins, $discountcoins, $displaystock, $sellername, $remark, $freeship, $eggless, $msgoncake);
+    $stmt11 = $conn->prepare("INSERT INTO productdetails( prod_name, prod_desc, prod_fulldetail, name_ar, short_ar, desc_ar, prod_mrp, prod_price, cgst, sgst, igst, shipping, hsn_code, w_price, w_qty, other_attribute, stock, unit, prod_rating, prod_rating_count, prod_img_url, cat_id, brand_id, review_id, create_by, update_by, pricearray,  coins, discount_coins, displaystock, sellername, prod_remark,freeship )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    $stmt11->bind_param("ssssssddddddsdisisdisiiisssiiissi", $name, $short, $full, $name_ar, $short_ar, $full_ar, $mrp, $price, $cgst, $sgst, $igst, $shipping, $hsn, $w_price, $w_qty, json_encode($other_art), $stockqty, $unit, $rating, $ratingcount, $imagejson, $cat, $brand, $reviewid, $datetime, $datetime, $pricearray, $refercoins, $discountcoins, $displaystock, $sellername, $remark, $freeship);
 
     $stmt11->execute();
     $stmt11->store_result();
-    //	 echo " insert ";
+    print_r($stmt11->error);
     $rows = $stmt11->affected_rows;
     if ($rows > 0) {
 

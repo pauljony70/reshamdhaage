@@ -110,7 +110,7 @@
 		var loadingAnimation = document.getElementById("loading-animation");
 		loadingAnimation.style.display = "none";
 	}); */
-	document.addEventListener('DOMContentLoaded', function () {
+	/* document.addEventListener('DOMContentLoaded', function () {
 		var loader = document.getElementById('loading-animation');
 		loader.style.display = 'flex'; // Show the loader initially
 
@@ -118,7 +118,7 @@
 		window.addEventListener('load', function () {
 			loader.style.display = 'none';
 		});
-	});
+	}); */
 </script>
 </body>
 

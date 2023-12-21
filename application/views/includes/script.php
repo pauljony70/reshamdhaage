@@ -67,8 +67,10 @@
 			document.body.style.overflow = '';
 
 			// Change the icon back to search
-			document.querySelector('.fa-xmark').classList.add('fa-magnifying-glass');
-			document.querySelector('.fa-xmark').classList.remove('fa-xmark');
+			if (document.querySelector('.fa-xmark')) {
+				document.querySelector('.fa-xmark').classList.add('fa-magnifying-glass');
+				document.querySelector('.fa-xmark').classList.remove('fa-xmark');
+			}
 		}
 	}
 

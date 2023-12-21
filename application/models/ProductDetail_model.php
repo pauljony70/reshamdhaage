@@ -279,7 +279,7 @@ class ProductDetail_model extends CI_Model
 			$msg = "No Product found";
 			$Information = "No Product found";
 		}
-		$jsonarray = $jsonarray = array(
+		$jsonarray = array(
 			'id' => "",
 			'name' => "",
 			'short_desc' => "",
@@ -307,15 +307,10 @@ class ProductDetail_model extends CI_Model
 		$reviewid = "";
 		$count = 0;
 
-		// ORDER BY id ASC|DESC;
-		//	echo "  inside ";
-
-		///  select prod_id from trending where order by priority ASC
-
-		// selectprod_name, prod_mp, prod_price, prod_rating from productdetails WHERE prod_id =  prod_id
+		
 		$catid = "";
 		$active = "active";
-		$this->db->select('pd.prod_id, pd.prod_name, pd.name_ar, pd.prod_desc, pd.prod_mrp, pd.prod_price, pd.w_price, pd.w_qty, pd.other_attribute,  pd.prod_img_url, bd.brand_name, pd.prod_fulldetail, pd.prod_rating, pd.prod_rating_count, pd.review_id, pd.cat_id, pd.unit, ct.cat_name, pd.pricearray, pd.stock, pd.prod_remark, pd.eggless, pd.msgoncake');
+		$this->db->select('pd.prod_id, pd.prod_name, pd.name_ar, pd.prod_desc, pd.prod_mrp, pd.prod_price, pd.w_price, pd.w_qty, pd.other_attribute, pd.prod_img_url, bd.brand_name, pd.prod_fulldetail, pd.prod_rating, pd.prod_rating_count, pd.review_id, pd.cat_id, pd.unit, ct.cat_name, pd.pricearray, pd.stock, pd.prod_remark');
 		$this->db->join('product prod', 'prod.prod_id = pd.prod_id', 'INNER');
 		$this->db->join('brand bd', 'prod.prod_brand_id= bd.brand_id', 'INNER');
 		$this->db->join('category ct', 'ct.cat_id= pd.cat_id', 'INNER');
@@ -326,7 +321,6 @@ class ProductDetail_model extends CI_Model
 
 		if ($query->num_rows() > 0) {
 			$query_result = $query->result_object();
-			// print_r($query_result);
 			
 			foreach ($query_result as $product_data) {
 				$catid = $product_data->cat_id;
@@ -425,6 +419,9 @@ class ProductDetail_model extends CI_Model
 		);
 
 		// $post_data= json_encode( $post_data );
+		// echo "<pre>";
+		// print_r($post_data);
+		// exit;
 
 		return $post_data;
 	}

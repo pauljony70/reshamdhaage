@@ -15,10 +15,6 @@
     opacity: 0.5;
 }
 
-.footer-logo img {
-    height: 54px;
-}
-
 @media(max-width: 768px) {
     .footer-badges i {
         font-size: 1.3rem;
@@ -30,9 +26,5 @@
 
     .free-shipping-text {
         font-size: 8px;
-    }
-
-    .footer-logo img {
-        height: 40px;
     }
 }

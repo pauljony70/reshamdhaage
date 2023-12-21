@@ -21,6 +21,24 @@ if (!function_exists('removeSpecialCharacters')) {
 	}
 }
 
+if (!function_exists('price_format')) {
+
+	function price_format($price)
+	{
+		$new_price = 0;
+
+		$currency = get_settings('system_currency_symbol');
+		if ($price > 0) {
+			if (strpos($price, '.') !== false) {
+				$new_price = $currency . '' . number_format($price, 2);
+			} else {
+				$new_price = $currency . '' . number_format($price, 2);
+			}
+		}
+		return $new_price;
+	}
+}
+
 if (!function_exists('get_settings')) {
 
 	function get_settings($type)
