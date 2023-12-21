@@ -1,18 +1,6 @@
 var code_ajax = $("#code_ajax").val();
 var pageno = 1;
 
-// function to convert hex color to RGB
-function hexToRgb(hex) {
-	// remove the "#" symbol
-	hex = hex.replace("#", "");
-	// convert to RGB
-	const r = parseInt(hex.substring(0, 2), 16);
-	const g = parseInt(hex.substring(2, 4), 16);
-	const b = parseInt(hex.substring(4, 6), 16);
-
-	return { r, g, b };
-}
-
 function getConfAttributeVal(pagenov) {
 	$.busyLoadFull("show");
 	var perpage = $('#perpage').val();
@@ -117,11 +105,12 @@ $(document).ready(function () {
 			form_data.append('namevalue', namevalue);
 			form_data.append('attribute_id', attribute_id);
 			form_data.append('main_attribute_id', main_attribute_id);
+            form_data.append('type', 'edit');
 			form_data.append('code', code_ajax);
 
 			$.ajax({
 				method: 'POST',
-				url: 'edit_attribute_conf_val_process.php',
+				url: 'attribute-val-conf-process.php',
 				data: form_data,
 				contentType: false,
 				processData: false,
@@ -131,7 +120,7 @@ $(document).ready(function () {
 					$('#update_attributes').val('');
 					$('#attribute_id').val('');
 					var page = $(".pagination .active .current").text();
-					getConfAttributeVal(page)
+					getConfAttributeVal(page);
 					successmsg(response);
 
 				}
@@ -156,8 +145,8 @@ function deletebrand(id, name) {
 		$.busyLoadFull("show");
 		$.ajax({
 			method: 'POST',
-			url: 'delete_attribute_conf_val.php',
-			data: { deletearray: id, code: code_ajax, main_attribute_id: main_attribute_id, name: name },
+			url: 'attribute-val-conf-process.php',
+			data: { deletearray: id, code: code_ajax, type: 'delete', main_attribute_id: main_attribute_id, namevalue: name },
 			success: function (response) {
 				$.busyLoadFull("hide");
 				if (response == 'Failed to Delete.') {
@@ -170,6 +159,7 @@ function deletebrand(id, name) {
 					//$("#myModalbrandassigndivy").html(response);
 					successmsg(response);
 				}
+                getConfAttributeVal(1);
 			}
 		});
 	}, {
@@ -186,5 +176,5 @@ function deletebrand(id, name) {
 
 
 function back_page(id) {
-	location.href = "manage_conf_attributes.php";
+	location.href = "manage-conf-attributes.php";
 }

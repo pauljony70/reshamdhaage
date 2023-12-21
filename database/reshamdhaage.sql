@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 21, 2023 at 10:57 AM
+-- Generation Time: Dec 21, 2023 at 01:53 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -1175,37 +1175,14 @@ CREATE TABLE `product_attributes_conf` (
 --
 
 INSERT INTO `product_attributes_conf` (`id`, `attribute_id`, `attribute_value`) VALUES
-(1, 1, 'M'),
-(2, 1, 'L'),
-(3, 2, '#F42525'),
-(4, 2, '#FAFF1C'),
-(5, 2, '#4870FF'),
-(6, 2, '1'),
-(10, 1, 'S'),
-(11, 1, 'XL'),
-(12, 1, 'XXL'),
-(18, 2, '#43549f'),
-(20, 2, '#a0b8f9'),
-(23, 2, '#ffffff'),
-(24, 2, '#f9f0f0'),
-(25, 2, '#c5d2ec'),
-(26, 2, '#cdcdd4'),
-(27, 2, '#9fb6cd'),
-(28, 2, '#c45fa4'),
-(29, 2, '#ff47cb'),
-(30, 2, '#c267a7'),
-(32, 2, '#ff4040'),
-(33, 2, '#ee3b3b'),
-(35, 2, '#303030'),
-(37, 2, '#dedede'),
-(38, 1, 'Free Size'),
-(226, 1, '2-2'),
-(227, 1, '2-4'),
-(228, 1, '2-6'),
-(229, 1, '2-8'),
-(236, 2, 'Carousel Pink'),
-(237, 2, 'color 1'),
-(238, 2, 'color 2');
+(8, 4, '#483794'),
+(9, 4, '#b9aee8'),
+(10, 5, 'S'),
+(11, 5, 'M'),
+(12, 5, 'L'),
+(13, 5, 'XL'),
+(14, 4, '#d17bc4'),
+(15, 4, '#ff6600');
 
 -- --------------------------------------------------------
 
@@ -1226,7 +1203,9 @@ CREATE TABLE `product_attributes_set` (
 --
 
 INSERT INTO `product_attributes_set` (`id`, `attribute`, `attribute_ar`, `created_at`, `updated_at`) VALUES
-(2, 'Color', 'null', '2023-12-21 14:59:18', '2023-12-21 09:34:38');
+(4, 'Color', 'null', '2023-12-21 16:26:48', '2023-12-21 10:56:52'),
+(5, 'Size', 'null', '2023-12-21 16:26:59', '2023-12-21 10:56:59'),
+(10, 'Storage', '', '2023-12-21 16:31:07', '2023-12-21 11:01:07');
 
 -- --------------------------------------------------------
 
@@ -1786,13 +1765,13 @@ ALTER TABLE `product_attribute`
 -- AUTO_INCREMENT for table `product_attributes_conf`
 --
 ALTER TABLE `product_attributes_conf`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `product_attributes_set`
 --
 ALTER TABLE `product_attributes_set`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product_variant_cat`

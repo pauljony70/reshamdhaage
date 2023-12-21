@@ -49,7 +49,7 @@ $(document).ready(function () {
         event.preventDefault();
     
         var namevalue = $('#attributes').val();
-        var namevalue_ar = null;
+        var namevalue_ar = '';
     
         if (!namevalue) {
             successmsg("Please enter Attributes Name");
@@ -86,7 +86,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         var namevalue = $('#update_attributes').val();
-        var namevalue_ar = null;
+        var namevalue_ar = '';
         var attribute_id = $('#attribute_id').val();
 
         if (!namevalue) {

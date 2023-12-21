@@ -1,3 +1,4 @@
+var code_ajax = $("#code_ajax").val();
 var imagejson = [];
 var attrjson = [];
 var multiPriceMainjson = [];
@@ -477,14 +478,13 @@ function getproduct_attr(counts = '') {
         method: 'POST',
         url: 'get_attributes.php',
         data: {
-            code: code_ajax, selected_attr: selected_attr
+            code: code_ajax,
+            selected_attr: selected_attr
         },
         success: function (response) {
 
             var data = $.parseJSON(response);
-            // $('#selectattrs' + counts).empty();
-            // var o = new Option("Select", "");
-            // $("#selectattrs" + counts).append(o);
+
             if (data["status"] == "1") {
                 $("#selectattrs_div").html('')
                 $(data["data"]).each(function () {
@@ -511,4 +511,50 @@ function getproduct_attr(counts = '') {
         }
     });
 
+}
+
+function select_attr_val(element_id, myTag, element_name) {
+    var tag_arr = myTag.split(',');
+    var tag_html = '';
+    for (var j = 0; j < tag_arr.length; j++) {
+        let firstChar = tag_arr[j].charAt(0);
+        if (firstChar == '#') {
+            var rgb = hexToRgb(tag_arr[j]);
+            var darkerColor = `rgb(${rgb.r * 0.8}, ${rgb.g * 0.8}, ${rgb.b * 0.8})`;
+            tag_html += '<div class="d-flex align-items-center mb-1"><input type="checkbox" name="attr' + element_id + '[]" value="' + tag_arr[j] + '" class="attr' + element_id + '"><span style="padding: 13px;background-color:' + tag_arr[j] + ';margin:0px 6px;font-size:1px;border-radius:30px;border:1px solid ' + darkerColor + ';"></span></div>';
+        } else {
+            tag_html += '<input type="checkbox" name="attr' + element_id + '[]" value="' + tag_arr[j] + '" class="attr' + element_id + '"><span style="padding: 9px;">' + tag_arr[j] + '</span>';
+        }
+    }
+
+    return tag_html;
+}
+
+function manage_configurations() { //
+    var prod_name = $("#prod_name").val();
+
+    if (!prod_name) {
+        successmsg("Please enter Product Name first");
+    }
+
+    if (prod_name) {
+        $.busyLoadFull("show");
+        $('#myform_attr').append('<input type="hidden" name="product_name" value="' + prod_name + '" /> ');
+        $('#myform_attr').append('<input type="hidden" name="code" value="' + code_ajax + '" /> ');
+        var formData = $('#myform_attr').serialize();
+
+        $.ajax({
+            method: 'POST',
+            url: 'get_attributes_conf_data.php',
+            data: formData,
+            success: function (response) {
+                $.busyLoadFull("hide");
+                var data = response;
+                $("#myModal").modal('hide');
+                $("#skip_pric").show();
+                $('#configurations_div_html').html(data);
+
+            }
+        });
+    }
 }

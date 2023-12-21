@@ -7,10 +7,10 @@ function processAttributeVal($type, $code, $attribute_id, $main_attribute_id, $n
     global $conn;
 
     $code = stripslashes($code);
-    $$attribute_id = stripslashes($$attribute_id);
+    $attribute_id = stripslashes($attribute_id);
     $main_attribute_id = stripslashes($main_attribute_id);
     $name = stripslashes($name);
-
+    $totalrow = -1;
 
     if (!isset($_SESSION['admin'])) {
         header("Location: index.php");
@@ -22,7 +22,8 @@ function processAttributeVal($type, $code, $attribute_id, $main_attribute_id, $n
             // Add attribute logic
             if ($code == $_SESSION['_token'] && isset($name) && !empty($name) && !empty($main_attribute_id)) {
                 // Check if the attribute already exists
-                $stmt12 = $conn->prepare("SELECT count(id) FROM product_attributes_set where attribute ='" . $name . "'");
+                $stmt12 = $conn->prepare("SELECT count(id) FROM product_attributes_conf where attribute_value ='" . $name . "' and attribute_id  ='" . $main_attribute_id . "'");
+
                 $stmt12->execute();
                 $stmt12->store_result();
                 $stmt12->bind_result($col55);
@@ -32,19 +33,17 @@ function processAttributeVal($type, $code, $attribute_id, $main_attribute_id, $n
                 }
 
                 if ($totalrow > 0) {
-                    echo "Attribute Already Exists.";
+                    echo "Attribute  Already Exist. ";
                 } else {
-                    // Insert the attribute if it doesn't exist
-                    $stmt11 = $conn->prepare("INSERT INTO product_attributes_set (attribute, attribute_ar) VALUES (?, ?)");
-                    $stmt11->bind_param("ss", $name, $name_ar);
+                    $stmt11 = $conn->prepare("INSERT INTO product_attributes_conf ( attribute_id, attribute_value)  VALUES (?,?)");
+                    $stmt11->bind_param("is", $main_attribute_id, $name);
 
                     $stmt11->execute();
                     $stmt11->store_result();
 
                     $rows = $stmt11->affected_rows;
-
                     if ($rows > 0) {
-                        echo "Attribute Added Successfully.";
+                        echo "Attribute Added Successfully. ";
                     } else {
                         echo "Failed to add Attribute";
                     }
@@ -56,10 +55,10 @@ function processAttributeVal($type, $code, $attribute_id, $main_attribute_id, $n
 
         case 'edit':
             // Edit attribute logic
-            if ($code == $_SESSION['_token'] && !empty($name) && !empty($attribute_id)) {
+            if ($code == $_SESSION['_token'] && isset($name) && !empty($name) && !empty($attribute_id) && !empty($main_attribute_id)) {
                 // Check if the new attribute name already exists (excluding the current attribute)
-                $stmt12 = $conn->prepare("SELECT count(id) FROM product_attributes_set WHERE attribute = ? AND id != ?");
-                $stmt12->bind_param("si", $name, $attribute_id);
+                $stmt12 = $conn->prepare("SELECT count(id) FROM product_attributes_conf where attribute_value ='" . $name . "' and id !='" . $attribute_id . "' and attribute_id ='" . $main_attribute_id . "'");
+
                 $stmt12->execute();
                 $stmt12->store_result();
                 $stmt12->bind_result($col55);
@@ -70,8 +69,8 @@ function processAttributeVal($type, $code, $attribute_id, $main_attribute_id, $n
 
                 if ($totalrow == 0) {
                     // Update the attribute if the new name doesn't exist
-                    $stmt11 = $conn->prepare("UPDATE product_attributes_set SET attribute = ?, attribute_ar = ? WHERE id = ?");
-                    $stmt11->bind_param("ssi", $name, $name_ar, $attribute_id);
+                    $stmt11 = $conn->prepare("UPDATE product_attributes_conf SET attribute_value = ? WHERE id = ?");
+                    $stmt11->bind_param("si", $name, $attribute_id);
 
                     $stmt11->execute();
                     $stmt11->store_result();
@@ -87,26 +86,23 @@ function processAttributeVal($type, $code, $attribute_id, $main_attribute_id, $n
 
         case 'delete':
             // Delete attribute logic
-            if ($code == $_SESSION['_token'] && isset($deletearray) && !empty($deletearray)) {
-                $stmt = $conn->prepare("SELECT id FROM product_attribute WHERE prod_attr_id = ?");
-                $stmt->bind_param("i",  $deletearray);
+            if ($code == $_SESSION['_token'] && isset($deletearray) && !empty($deletearray) && !empty($name) && !empty($main_attribute_id)) {
+                $stmt = $conn->prepare("SELECT count(id)FROM product_attribute where prod_attr_id ='" . $main_attribute_id . "'
+                AND attr_value like '%\"" . $name . "\"%'");
+
                 $stmt->execute();
-                $return = array();
+
 
                 $stmt->bind_result($col55);
 
-                $exist = "N";
                 while ($stmt->fetch()) {
                     $totalrow = $col55;
-                    $exist = "Y";
                 }
 
-                if ($exist == "Y") {
-                    echo "This Attribute already assign to some products.You can't delete the brand if it is assign to a product. Please delete product first";
+                if ($totalrow > 0) {
+                    echo "Attribute in Product. Please delete product first";
                 } else {
-                    // Existing code for deleting attribute
-                    $stmt2 = $conn->prepare("DELETE FROM product_attributes_set WHERE id = ?");
-                    $stmt2->bind_param("i", $deletearray);
+                    $stmt2 = $conn->prepare("DELETE FROM product_attributes_conf WHERE id = '" . $deletearray . "'");
                     $stmt2->execute();
 
                     $rows = $stmt2->affected_rows;
@@ -136,9 +132,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['type'] === "add" && isset($
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['type'] === "edit" && isset($_POST['attribute_id']) && isset($_POST['namevalue']) && isset($_POST['code'])) {
-    // processAttributeVal('edit', $_POST['code'], $_POST['namevalue'], $_POST['namevalue_ar'], $_POST['attribute_id'], null);
+    processAttributeVal('edit', $_POST['code'], $_POST['attribute_id'], $_POST['main_attribute_id'], $_POST['namevalue'], null);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['type'] === "delete" && isset($_POST['deletearray']) && isset($_POST['code'])) {
-    // processAttributeVal('delete', $_POST['code'], null, null, null, $_POST['deletearray']);
+    processAttributeVal('delete', $_POST['code'], null, $_POST['main_attribute_id'], $_POST['namevalue'], $_POST['deletearray']);
 }

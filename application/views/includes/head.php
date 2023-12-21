@@ -33,7 +33,7 @@ if (empty($this->session->userdata('default_language'))) {
 <!-- Custom css -->
 <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/style.css') ?>">
 <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/topbar.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>assets/css/navbar.css">
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/navbar.css">
 <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/footer.css') ?>">
 
 <script>

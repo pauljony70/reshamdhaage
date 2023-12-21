@@ -109,6 +109,10 @@ function processAttribute($type, $code, $name, $name_ar, $attribute_id, $deletea
 
                     $rows = $stmt2->affected_rows;
 
+                    $stmt3 = $conn->prepare("DELETE FROM product_attributes_conf WHERE attribute_id = ?");
+                    $stmt3->bind_param("i", $deletearray);
+                    $stmt3->execute();
+
                     if ($rows > 0) {
                         echo "Deleted";
                     } else {

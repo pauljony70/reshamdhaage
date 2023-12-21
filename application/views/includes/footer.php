@@ -45,7 +45,7 @@
                             break;
                         } else { ?>
                             <div class="mb-3">
-                                <a href="<?php echo base_url . 'shop/' . $maincat_top['cat_slug']; ?>"><?php echo $maincat_top['cat_name']; ?></a>
+                                <a href="<?= base_url() . 'shop/' . $maincat_top['cat_slug']; ?>"><?= $maincat_top['cat_name']; ?></a>
                             </div>
                     <?php }
                     } ?>
@@ -126,7 +126,7 @@
                                         break;
                                     } else { ?>
                                         <div class="mb-3">
-                                            <a href="<?php echo base_url . 'shop/' . $maincat_top['cat_slug']; ?>"><?php echo $maincat_top['cat_name']; ?></a>
+                                            <a href="<?= base_url() . 'shop/' . $maincat_top['cat_slug']; ?>"><?= $maincat_top['cat_name']; ?></a>
                                         </div>
                                 <?php }
                                 } ?>

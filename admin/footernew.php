@@ -1,15 +1,30 @@
 <!--footer-->
 <div class="footer">
-	<p class="text-center mb-0">&copy; 2023 BlueApp Software. All Rights Reserved | Design and developed by <a
-			href="https://www.blueappsoftware.com/" class="text-dark" target="_blank">BlueApp Software</a></p>
+    <p class="text-center mb-0">&copy; 2023 BlueApp Software. All Rights Reserved | Design and developed by <a href="https://www.blueappsoftware.com/" class="text-dark" target="_blank">BlueApp Software</a></p>
 </div>
 <!--//footer-->
 </div>
 <script src="js/classie.js"></script>
 <script>
-	function edit_orders(order_id, prod_id) {
-		location.href = "edit_order.php?orderid=" + order_id + "&product_id=" + prod_id;
-	}
+    function edit_orders(order_id, prod_id) {
+        location.href = "edit_order.php?orderid=" + order_id + "&product_id=" + prod_id;
+    }
+
+    // function to convert hex color to RGB
+    function hexToRgb(hex) {
+        // remove the "#" symbol
+        hex = hex.replace("#", "");
+        // convert to RGB
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+
+        return {
+            r,
+            g,
+            b
+        };
+    }
 </script>
 <!-- Vendor js -->
 <script src="assets/libs/mohithg-switchery/switchery.min.js"></script>
@@ -54,9 +69,7 @@
 <script src="assets/libs/auto-complete/jquery-ui.js"></script>
 <script src="assets/libs/ladda/spin.min.js"></script>
 <script src="assets/libs/ladda/ladda.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.4/tinymce.min.js"
-	integrity="sha512-kQSkkpoq98tNK/kdapmHfgiLLNnpu3nsyUX5O67/9sr+qKN25tNBo07y/8NM/usymGx2Qif4FawiqbCjOFkaFg=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.4/tinymce.min.js" integrity="sha512-kQSkkpoq98tNK/kdapmHfgiLLNnpu3nsyUX5O67/9sr+qKN25tNBo07y/8NM/usymGx2Qif4FawiqbCjOFkaFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- App js-->
 <script src="assets/js/app.min.js"></script>
@@ -106,19 +119,19 @@
 <!-- //calendar -->
 
 <script>
-	/* document.addEventListener("DOMContentLoaded", function() {
+    /* document.addEventListener("DOMContentLoaded", function() {
 		var loadingAnimation = document.getElementById("loading-animation");
 		loadingAnimation.style.display = "none";
 	}); */
-	/* document.addEventListener('DOMContentLoaded', function () {
-		var loader = document.getElementById('loading-animation');
-		loader.style.display = 'flex'; // Show the loader initially
+    /* document.addEventListener('DOMContentLoaded', function () {
+    	var loader = document.getElementById('loading-animation');
+    	loader.style.display = 'flex'; // Show the loader initially
 
-		// Hide the loader when the document finishes loading
-		window.addEventListener('load', function () {
-			loader.style.display = 'none';
-		});
-	}); */
+    	// Hide the loader when the document finishes loading
+    	window.addEventListener('load', function () {
+    		loader.style.display = 'none';
+    	});
+    }); */
 </script>
 </body>
 
